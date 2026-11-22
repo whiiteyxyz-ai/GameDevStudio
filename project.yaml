@@ -25,3 +25,34 @@ framework:
 # here. `/project-settings --local <key>=<value>` writes there; `/project-settings <key>=<value>`
 # edits this file. See `.claude/docs/config-resolution.md` for the full
 # precedence order.
+
+engine:
+  name: "Unity"
+  version: "6.3 LTS (6000.3.26f1)"
+  language: "C#"
+  rendering: "URP"
+  physics: "PhysX"
+  # TODO: editor path NOT VERIFIED (no Unity editor on the machine that ran /setup-engine). Confirm via /project-settings.
+  path: "C:/Program Files/Unity/Hub/Editor/6000.3.26f1/Editor/Unity.exe"
+
+specialists:
+  code: "unity-specialist"
+  shader: "unity-shader-specialist"
+  ui: "unity-ui-specialist"
+  additional: ["unity-dots-specialist", "unity-addressables-specialist"]
+
+naming:
+  classes: PascalCase
+  variables: camelCase
+  constants: SCREAMING_SNAKE   # UNVERIFIED - not sourceable from
+                               # docs/engine-reference/unity/; confirm before relying on it
+  signals: "PascalCase On<Event>"
+  files: PascalCase
+  scenes: PascalCase
+
+commands:
+  # TODO: confirm the editor path (see engine.path) and that the game is named PortalArena.
+  build: '"C:/Program Files/Unity/Hub/Editor/6000.3.26f1/Editor/Unity.exe" -batchmode -quit -projectPath . -buildTarget Win64 -buildWindows64Player Builds/Win64/PortalArena.exe'
+  test: '"C:/Program Files/Unity/Hub/Editor/6000.3.26f1/Editor/Unity.exe" -batchmode -runTests -projectPath . -testPlatform EditMode -testResults test-results/editmode.xml'
+  run: "Builds/Win64/PortalArena.exe -screen-width 1280 -screen-height 720 -screen-fullscreen 0"
+  smoke: '"C:/Program Files/Unity/Hub/Editor/6000.3.26f1/Editor/Unity.exe" -batchmode -quit -projectPath . -logFile -'

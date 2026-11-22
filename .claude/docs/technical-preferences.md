@@ -10,42 +10,42 @@
 
 ## Engine & Language
 
-- **Engine**: [TO BE CONFIGURED — run /setup-engine]
-- **Language**: [TO BE CONFIGURED]
-- **Rendering**: [TO BE CONFIGURED]
-- **Physics**: [TO BE CONFIGURED]
+- **Engine**: Unity 6.3 LTS (6000.3.26f1)
+- **Language**: C#
+- **Rendering**: URP
+- **Physics**: PhysX
 
 ## Input & Platform
 
 <!-- Written by /setup-engine. Read by /ux-design, /ux-review, /test-setup, /team-ui, and /dev-story -->
 <!-- to scope interaction specs, test helpers, and implementation to the correct input methods. -->
 
-- **Target Platforms**: [TO BE CONFIGURED — e.g., PC, Console, Mobile, Web]
-- **Input Methods**: [TO BE CONFIGURED — e.g., Keyboard/Mouse, Gamepad, Touch, Mixed]
-- **Primary Input**: [TO BE CONFIGURED — the dominant input for this game]
-- **Gamepad Support**: [TO BE CONFIGURED — Full / Partial / None]
-- **Touch Support**: [TO BE CONFIGURED — Full / Partial / None]
-- **Platform Notes**: [TO BE CONFIGURED — any platform-specific UX constraints]
+- **Target Platforms**: PC (Windows)
+- **Input Methods**: Keyboard/Mouse, Gamepad
+- **Primary Input**: Keyboard/Mouse
+- **Gamepad Support**: Partial
+- **Touch Support**: None
+- **Platform Notes**: Q = left portal, E = right portal (remappable via the Unity Input System). Low input latency is a requirement.
 
 ## Naming Conventions
 
-- **Classes**: [TO BE CONFIGURED]
-- **Variables**: [TO BE CONFIGURED]
-- **Signals/Events**: [TO BE CONFIGURED]
-- **Files**: [TO BE CONFIGURED]
-- **Scenes/Prefabs**: [TO BE CONFIGURED]
-- **Constants**: [TO BE CONFIGURED]
+- **Classes**: PascalCase (`PlayerController`)
+- **Variables**: public PascalCase (`MoveSpeed`), private _camelCase (`_moveSpeed`)
+- **Signals/Events**: PascalCase `On<Event>`
+- **Files**: PascalCase matching the class (`PlayerController.cs`)
+- **Scenes/Prefabs**: PascalCase
+- **Constants**: PascalCase or UPPER_SNAKE_CASE (UNVERIFIED, see project.yaml)
 
 ## Performance Budgets
 
-- **Target Framerate**: [TO BE CONFIGURED]
-- **Frame Budget**: [TO BE CONFIGURED]
-- **Draw Calls**: [TO BE CONFIGURED]
-- **Memory Ceiling**: [TO BE CONFIGURED]
+- **Target Framerate**: 144 fps (stretch 180 Hz, floor 120 Hz), low input latency
+- **Frame Budget**: 6.9 ms at 144 fps (5.5 ms at 180 Hz, 8.3 ms at 120 Hz); includes portal cameras
+- **Draw Calls**: [TO BE CONFIGURED once a portal prototype is profiled]
+- **Memory Ceiling**: [TO BE CONFIGURED once target hardware is known]
 
 ## Testing
 
-- **Framework**: [TO BE CONFIGURED]
+- **Framework**: NUnit (Unity Test Framework): `Assets/Tests/EditMode`, `Assets/Tests/PlayMode`
 - **Minimum Coverage**: [TO BE CONFIGURED]
 - **Required Tests**: Balance formulas, gameplay systems, networking (if applicable)
 
@@ -70,12 +70,12 @@
 <!-- Read by /code-review, /architecture-decision, /architecture-review, and team skills -->
 <!-- to know which specialist to spawn for engine-specific validation. -->
 
-- **Primary**: [TO BE CONFIGURED — run /setup-engine]
-- **Language/Code Specialist**: [TO BE CONFIGURED]
-- **Shader Specialist**: [TO BE CONFIGURED]
-- **UI Specialist**: [TO BE CONFIGURED]
-- **Additional Specialists**: [TO BE CONFIGURED]
-- **Routing Notes**: [TO BE CONFIGURED]
+- **Primary**: unity-specialist
+- **Language/Code Specialist**: unity-specialist (C# review)
+- **Shader Specialist**: unity-shader-specialist (Shader Graph, HLSL, URP materials)
+- **UI Specialist**: unity-ui-specialist (UI Toolkit, UGUI)
+- **Additional Specialists**: unity-dots-specialist (ECS/Jobs/Burst), unity-addressables-specialist (asset loading)
+- **Routing Notes**: Primary for architecture and C# review; shader specialist for portal rendering and VFX; UI specialist for HUD and menus; network-programmer for netcode.
 
 ### File Extension Routing
 
@@ -84,9 +84,9 @@
 
 | File Extension / Type | Specialist to Spawn |
 |-----------------------|---------------------|
-| Game code (primary language) | [TO BE CONFIGURED] |
-| Shader / material files | [TO BE CONFIGURED] |
-| UI / screen files | [TO BE CONFIGURED] |
-| Scene / prefab / level files | [TO BE CONFIGURED] |
-| Native extension / plugin files | [TO BE CONFIGURED] |
+| Game code (.cs) | unity-specialist |
+| Shader / material files (.shader, .shadergraph, .mat) | unity-shader-specialist |
+| UI / screen files (.uxml, .uss, Canvas prefabs) | unity-ui-specialist |
+| Scene / prefab / level files (.unity, .prefab) | unity-specialist |
+| Native extension / plugin files (.dll) | unity-specialist |
 | General architecture review | Primary |
